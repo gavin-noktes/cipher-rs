@@ -1,4 +1,4 @@
-use crate::util;
+use crate::utils;
 
 pub fn ceasar_cipher(encode_or_decode: &str, text: String, mut num: usize) -> String {
   // Alter this vector to change the way the cipher shifts
@@ -29,7 +29,7 @@ pub fn ceasar_cipher(encode_or_decode: &str, text: String, mut num: usize) -> St
       // If encoding, then push the letter added by num so (a = 0) + 2 = (c = 2)
       if encode_or_decode == "Encode" {
         // Handle uppercase letters for encoding
-        encoded_text = util::push_letter_upper(
+        encoded_text = utils::push_letter_upper(
           &encoded_text,
           letter,
           alphabet[(letter_pos + num) % alphabet.len()],
@@ -43,7 +43,7 @@ pub fn ceasar_cipher(encode_or_decode: &str, text: String, mut num: usize) -> St
           val = letter_pos - num;
         }
         // Handle uppercase letters for decoding
-        encoded_text = util::push_letter_upper(&encoded_text, letter, alphabet[val]);
+        encoded_text = utils::push_letter_upper(&encoded_text, letter, alphabet[val]);
       }
     } else {
       // If we don't know what letter it is, just add it without adding to it

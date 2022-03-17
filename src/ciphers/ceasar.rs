@@ -23,7 +23,7 @@ pub fn ceasar_cipher(encode_or_decode: &str, text: String, mut num: usize) -> St
     if alphabet.contains(&letter.to_ascii_lowercase()) {
       let letter_pos = alphabet
         .iter()
-        .position(|&r| &r == &letter.to_ascii_lowercase())
+        .position(|&r| r == letter.to_ascii_lowercase())
         .unwrap();
 
       // If encoding, then push the letter added by num so (a = 0) + 2 = (c = 2)

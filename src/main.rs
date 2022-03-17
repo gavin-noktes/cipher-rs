@@ -1,4 +1,4 @@
-use cipher_app::cli::run_cli;
+use cipher_app::cli::run::run_cli;
 use colored::*;
 
 fn main() {

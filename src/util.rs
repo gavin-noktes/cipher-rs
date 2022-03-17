@@ -1,0 +1,12 @@
+// Handle uppercase letters
+pub fn push_letter_upper(list: &Vec<char>, letter_check: char, letter_add: char) -> Vec<char> {
+  let mut list = list.clone();
+
+  if letter_check.is_ascii_uppercase() {
+    list.push(letter_add.to_ascii_uppercase());
+  } else {
+    list.push(letter_add);
+  }
+
+  list
+}

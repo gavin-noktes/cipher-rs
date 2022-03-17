@@ -1,3 +1,5 @@
+use crate::util;
+
 pub fn ceasar_cipher(encode_or_decode: &str, text: String, mut num: usize) -> String {
   // Alter this vector to change the way the cipher shifts
   let alphabet: Vec<char> = vec![
@@ -21,12 +23,17 @@ pub fn ceasar_cipher(encode_or_decode: &str, text: String, mut num: usize) -> St
     if alphabet.contains(&letter.to_ascii_lowercase()) {
       let letter_pos = alphabet
         .iter()
-        .position(|&r| r == letter.to_ascii_lowercase())
+        .position(|&r| &r == &letter.to_ascii_lowercase())
         .unwrap();
 
       // If encoding, then push the letter added by num so (a = 0) + 2 = (c = 2)
       if encode_or_decode == "Encode" {
-        encoded_text.push(alphabet[(letter_pos + num) % alphabet.len()]);
+        // Handle uppercase letters for encoding
+        encoded_text = util::push_letter_upper(
+          &encoded_text,
+          letter,
+          alphabet[(letter_pos + num) % alphabet.len()],
+        );
       } else {
         // Handle where num is greater than letter_pos (subtraction overflow)
         let val: usize;
@@ -35,12 +42,8 @@ pub fn ceasar_cipher(encode_or_decode: &str, text: String, mut num: usize) -> St
         } else {
           val = letter_pos - num;
         }
-        // Handle uppercase letters
-        if letter.is_ascii_uppercase() {
-          encoded_text.push(alphabet[val].to_ascii_uppercase())
-        } else {
-          encoded_text.push(alphabet[val])
-        }
+        // Handle uppercase letters for decoding
+        encoded_text = util::push_letter_upper(&encoded_text, letter, alphabet[val]);
       }
     } else {
       // If we don't know what letter it is, just add it without adding to it

@@ -1,4 +1,23 @@
-pub fn shuffle_chipher(text: String, num: usize) -> String {
+#[path = "./base_cipher.rs"] mod base_cipher;
+
+use base_cipher::Cipher;
+use crate::cli::user_input::{ask_for_num};
+
+pub struct Shuffle;
+
+impl Cipher for Shuffle {
+  fn encode(&self, text: &str) -> String {
+    let num = ask_for_num("number for shuffle encoding");
+    shuffle_chipher(String::from(text), num)
+  }
+
+  fn decode(&self, text: &str) -> String {
+    let num = ask_for_num("number for shuffle decoding");
+    shuffle_chipher(String::from(text), num)
+  }
+}
+
+fn shuffle_chipher(text: String, num: usize) -> String {
   // encode and decode does the same thing and encode (or decode)
   // twice turn the text back to normal 
 
